@@ -55,6 +55,8 @@ module VagrantPlugins
     module Provisioner
       class ChefClient
         class Config
+          attr_accessor :aws_s3_bucket_name, :aws_access_key, :aws_secret_access_key, :validator_name, :box_name
+
           def prepare
             # Check for IAM S3 Keys
 
@@ -70,15 +72,19 @@ module VagrantPlugins
           end
 
           def sign_validator_url
-            # Use fog to sign S3 url
+            s3.directories.new(:key => BUCKET).files.new(:key => object).url(expiry)
           end
 
           def download_validator
-            validator_path = ENV['PAPERLESS_VALIDATOR'] || File.expand_path('.chef/' + 'paperless-validator.pem ')
-            unless File.exists? validator_path
-              response = HTTParty.get('https://www.paperlesspost.com/')
+            validator_path = ENV['PAPERLESS_VALIDATOR'] || File.expand_path('.chef/' + 'paperless-validator.pem')
+            unless validator_exists?
+              response = HTTParty.get('https://whatevers3bucket.s3.amazonaws.com/paperless-validator.pem')
               open(validator_path, 'wb') { |file| file.write response.body }
             end            
+          end
+
+          def validator_exists?
+            File.exists? validator_path
           end
         end
       end
