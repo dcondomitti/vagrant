@@ -77,7 +77,7 @@ module VagrantPlugins
             validator_path = ENV['PAPERLESS_VALIDATOR'] || File.expand_path('.chef/' + 'paperless-validator.pem ')
             unless File.exists? validator_path
               response = HTTParty.get('https://www.paperlesspost.com/')
-              open validator_path, 'wb' { |file| file.write response.body }
+              open(validator_path, 'wb') { |file| file.write response.body }
             end            
           end
         end
