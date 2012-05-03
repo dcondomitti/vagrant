@@ -4,7 +4,7 @@
 
 rbenv doesn't have a simple installer like RVM but it's still really easy to install it on your machine.
 
-### Check out rbenv into `~/.rbenv`
+### Check out rbenv into your home directory
 
     <~> 
     [(06:31 PM) dcondomitti@disrupt] $ git clone git://github.com/sstephenson/rbenv.git .rbenv
@@ -15,8 +15,7 @@ rbenv doesn't have a simple installer like RVM but it's still really easy to ins
     Receiving objects: 100% (1040/1040), 138.19 KiB, done.
     Resolving deltas: 100% (650/650), done.
 
-### Add `~/.rbenv/bin` to your `$PATH` for access to the `rbenv`
-   command-line utility.
+### Add it to your path
 
     <~> 
     [(06:31 PM) dcondomitti@disrupt] $ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile

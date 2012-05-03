@@ -136,7 +136,7 @@ This project has very few dependencies as they're all contained within the indiv
 
 ### Fire this 'ish up
 
-Simply type `bin/vagrant up`, provide your password and your development environment should be ready by the time you're done grinding a few cups of pourover coffee for your coworkers (you owe it to them, do it.) The Vagrant gem and chef recipes will handle downloading the base CentOS 6.2 image, importing it into Virtualbox, creating the necessary NFS mounts and port forwards and most importantly installing the application and its dependencies.
+Simply type `bin/vagrant up`, provide your password and your development environment should be ready by the time you're done grinding a few cups of pourover coffee. The Vagrant gem and chef recipes will handle downloading the base CentOS 6.2 image, importing it into Virtualbox, creating the necessary NFS mounts and port forwards and most importantly installing the application and its dependencies.
 
     <~/Sites/paperlesspost/vagrant> [master]
     [(05:27 PM) dcondomitti@disrupt] $ bin/vagrant up
