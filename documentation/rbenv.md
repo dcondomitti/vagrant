@@ -1,10 +1,11 @@
-# RVM Installation
+# rbenv Installation
 
 ## Main Script
 
 rbenv doesn't have a simple installer like RVM but it's still really easy to install it on your machine.
 
-1. Check out rbenv into `~/.rbenv`.
+### Check out rbenv into `~/.rbenv`
+
     <~> 
     [(06:31 PM) dcondomitti@disrupt] $ git clone git://github.com/sstephenson/rbenv.git .rbenv
     Cloning into '.rbenv'...
@@ -14,24 +15,25 @@ rbenv doesn't have a simple installer like RVM but it's still really easy to ins
     Receiving objects: 100% (1040/1040), 138.19 KiB, done.
     Resolving deltas: 100% (650/650), done.
 
-2. Add `~/.rbenv/bin` to your `$PATH` for access to the `rbenv`
+### Add `~/.rbenv/bin` to your `$PATH` for access to the `rbenv`
    command-line utility.
 
     <~> 
     [(06:31 PM) dcondomitti@disrupt] $ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
 
-3. Add rbenv init to your shell to enable shims and autocompletion.
+### Add rbenv init to your shell to enable shims and autocompletion
 
     <~> 
     [(06:31 PM) dcondomitti@disrupt] $ echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
 
-4. Reload your ~/.bash_profile so the path changes take effect. You can now
-   begin using rbenv.
+### Reload your ~/.bash_profile so the path changes take effect
 
     <~> 
     [(06:32 PM) dcondomitti@disrupt] $ . ~/.bash_profile 
 
-5. Install ruby-build
+## Ruby Builder
+
+### Install ruby-build
 
     <~> 
     [(06:32 PM) dcondomitti@disrupt] $ mkdir -p ~/.rbenv/plugins
@@ -46,12 +48,12 @@ rbenv doesn't have a simple installer like RVM but it's still really easy to ins
     Receiving objects: 100% (856/856), 89.22 KiB, done.
     Resolving deltas: 100% (423/423), done.
 
-6. Rehash to reload rbenv
+### Rehash to reload rbenv
 
     <~/.rbenv/plugins> [master]
     [(06:32 PM) dcondomitti@disrupt] $ rbenv rehash
 
-7. Install Ruby 1.9.3-p194 and bundler
+### Install Ruby 1.9.3-p194
 
     <~/.rbenv/plugins> [master]
     [(06:32 PM) dcondomitti@disrupt] $ rbenv install 1.9.3-p194
@@ -64,6 +66,11 @@ rbenv doesn't have a simple installer like RVM but it's still really easy to ins
     <~/.rbenv/plugins> [master]
     [(06:37 PM) dcondomitti@disrupt] $ rbenv global 1.9.3-p194 --default
     <~/.rbenv/plugins> [master]
+
+## Bundler
+
+rbenv needs to be reloaded to detect any new binaries once a gem is installed.
+
     [(06:37 PM) dcondomitti@disrupt] $ gem install bundler --no-rdoc --no-ri
     Fetching: bundler-1.1.3.gem (100%)
     Successfully installed bundler-1.1.3
