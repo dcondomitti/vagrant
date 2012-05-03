@@ -90,15 +90,7 @@ As of XCode 4.1 you need to download it from the Mac App Store. This means you n
 
 ### Ruby 1.9.3
 
-It really doesn't matter what you use to install Ruby it's only used to control Vagrant; all actual applications run within our self-packaged system rubies within the VMs. **[rbenv](https://github.com/sstephenson/rbenv)** and **[RVM](https://github.com/wayneeseguin/rvm)** can be used to install Ruby. If you run into any issues there are users of both in the office. 
-
-#### rbenv
-
- YARRR HERE BE RBENV INSTRUCTIONS
-
-#### RVM
-
-  YARR HERE BE RVM INSTRUCTIONS
+It really doesn't matter what you use to install Ruby it's only used to control Vagrant; all actual applications run within our self-packaged system rubies within the VMs. **[rbenv](https://github.com/sstephenson/rbenv)** and **[RVM](https://github.com/wayneeseguin/rvm)** can be used to install Ruby. If you run into any issues there are users of both in the office. View our installation documentation for [rbenv](https://github.com/dcondomitti/vagrant/tree/master/documentation/rbenv.md) or [RVM](https://github.com/dcondomitti/vagrant/tree/master/documentation/rvm.md) for more info.
 
 ### Bundler
 
@@ -144,7 +136,7 @@ This project has very few dependencies as they're all contained within the indiv
 
 ### Fire this 'ish up
 
-Simply type `bin/vagrant up`, provide your password and your development environment should be done by the time you're done grinding a few cups of pourover coffee for your coworkers. The Vagrant gem and chef recipes will handle downloading the base CentOS 6.2 image, importing it into Virtualbox, creating the necessary NFS mounts and port forwards and most importantly installing the application and its dependencies.
+Simply type `bin/vagrant up`, provide your password and your development environment should be ready by the time you're done grinding a few cups of pourover coffee for your coworkers (you owe it to them, do it.) The Vagrant gem and chef recipes will handle downloading the base CentOS 6.2 image, importing it into Virtualbox, creating the necessary NFS mounts and port forwards and most importantly installing the application and its dependencies.
 
     <~/Sites/paperlesspost/vagrant> [master]
     [(05:27 PM) dcondomitti@disrupt] $ bin/vagrant up
