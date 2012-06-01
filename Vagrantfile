@@ -28,7 +28,7 @@ Vagrant::Config.run do |config|
   config.vm.box_url = 'https://paperless.interval.io.s3.amazonaws.com/paperless-final.box?AWSAccessKeyId=AKIAJX2DBMWSKWJN2JXA&Expires=1339180482&Signature=WSGjwQKky1mXZ7dTG4RFglvH2pw%3D'
 
   config.ssh.username = "paperless"
-  config.vm.host_name = ENV['PAPERLESS_VAGRANTHOST'] || "#{username}.vagrant.paperlessdevelopment.com"
+  config.vm.host_name = ENV['PAPERLESS_VAGRANTHOST'] || "#{username}.vagrant.paperlesspost.com"
   config.vm.share_folder "paperlesspost", "/opt/src/paperlesspost", shared_path, :nfs => true
 
   config.vm.network :hostonly, "1.0.0.254"
