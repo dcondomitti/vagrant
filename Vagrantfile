@@ -3,7 +3,6 @@
 require 'yaml'
 require 'httparty'
 
-class DevtoolsNotConfiguredException < Exception; end
 
 # Opscode platform requires unique hostnames for each node registered so
 # the Vagrantfile needs to include a user's name in the node's name. We
@@ -15,12 +14,16 @@ class DevtoolsNotConfiguredException < Exception; end
 # the node name.
 begin
   pp_config = YAML.load_file(File.expand_path(File.join('~', '.pp', 'config.yml')))
-  username = pp_config['github_username']
+  username = pp_config['username']
   pushparty_token = pp_config['token']
-  raise DevtoolsNotConfiguredException unless username && pushparty_token
+  raise "Missing username and/or pushparty token" unless username && pushparty_token
+rescue => e
+  puts "Tried to get your devtools config but could not read the file or settings were missing."
+  puts "Please go to http://pushparty.paperlesspost.com/users/settings for more info."
+  puts "Original error: #{e}"
 end
 
-shared_path = ENV['PAPERLESS_MOUNT'] || (File.expand_path('../' + 'vagrant-shared'))
+shared_path = ENV['PAPERLESS_MOUNT'] || (File.expand_path('../'))
 Dir.mkdir shared_path unless Dir.exists? shared_path
 
 Vagrant::Config.run do |config|
@@ -29,6 +32,8 @@ Vagrant::Config.run do |config|
 
   config.ssh.username = "paperless"
   config.vm.host_name = ENV['PAPERLESS_VAGRANTHOST'] || "#{username}.vagrant.paperlesspost.com"
+  config.nfs.map_uid = 501
+  config.nfs.map_gid = false
   config.vm.share_folder "paperlesspost", "/opt/src/paperlesspost", shared_path, :nfs => true
 
   config.vm.network :hostonly, "1.0.0.254"
