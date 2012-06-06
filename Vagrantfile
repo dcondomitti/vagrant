@@ -40,7 +40,7 @@ Vagrant::Config.run do |config|
     chef.add_role("flat")
     chef.environment = "development"
     chef.json = {
-      :pushparty_token => pushparty_token
+      :devtools_config => pp_config
     }
   end
 end
