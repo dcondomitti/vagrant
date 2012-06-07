@@ -1,8 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 require 'yaml'
-require 'httparty'
-
 
 # Opscode platform requires unique hostnames for each node registered so
 # the Vagrantfile needs to include a user's name in the node's name. We
@@ -27,8 +25,8 @@ shared_path = ENV['PAPERLESS_MOUNT'] || (File.expand_path('../'))
 Dir.mkdir shared_path unless Dir.exists? shared_path
 
 Vagrant::Config.run do |config|
-  config.vm.box = 'paperless-final'
-  config.vm.box_url = 'https://paperless.interval.io.s3.amazonaws.com/paperless-final.box?AWSAccessKeyId=AKIAJX2DBMWSKWJN2JXA&Expires=1339180482&Signature=WSGjwQKky1mXZ7dTG4RFglvH2pw%3D'
+  config.vm.box = 'paperless-4.1.16'
+  config.vm.box_url = 'https://paperless.interval.io.s3.amazonaws.com/paperless-4.1.16.box?AWSAccessKeyId=AKIAJX2DBMWSKWJN2JXA&Expires=1339697980&Signature=KH8oxdQqPvnOfjGNIzhtOaNk7Ro%3D'
 
   config.ssh.username = "paperless"
   config.vm.host_name = ENV['PAPERLESS_VAGRANTHOST'] || "#{username}.vagrant.paperlesspost.com"
