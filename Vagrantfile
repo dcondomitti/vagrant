@@ -1,8 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 require 'yaml'
-require 'httparty'
-
 
 # Opscode platform requires unique hostnames for each node registered so
 # the Vagrantfile needs to include a user's name in the node's name. We
