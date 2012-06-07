@@ -33,7 +33,6 @@ Vagrant::Config.run do |config|
   config.ssh.username = "paperless"
   config.vm.host_name = ENV['PAPERLESS_VAGRANTHOST'] || "#{username}.vagrant.paperlesspost.com"
   config.nfs.map_uid = 501
-  config.nfs.map_gid = false
   config.vm.share_folder "paperlesspost", "/opt/src/paperlesspost", shared_path, :nfs => true
 
   config.vm.network :hostonly, "1.0.0.254"
