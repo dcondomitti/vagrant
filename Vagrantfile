@@ -30,6 +30,12 @@ vm_host_name = ENV['PAPERLESS_VAGRANTHOST'] || [hostname, username, "vagrant.pap
 
 uid = %x[id -u].chomp
 
+default_attributes = {
+  :devtools_config => pp_config
+}
+
+default_attributes[:vagrant_db_provision] = true if ENV['DBPROVISION']
+
 Vagrant::Config.run do |config|
   config.vm.box = 'paperless-4.1.16'
   config.vm.box_url = 'http://nybuntu.paperlesspost.com/paperless-4.1.16.box'
@@ -47,8 +53,6 @@ Vagrant::Config.run do |config|
     chef.validation_key_path = ".chef/paperlesspost-validator.pem"
     chef.add_role("flat")
     chef.environment = "development"
-    chef.json = {
-      :devtools_config => pp_config
-    }
+    chef.json = default_attributes
   end
 end
