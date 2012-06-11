@@ -28,13 +28,15 @@ Dir.mkdir shared_path unless Dir.exists? shared_path
 hostname = Socket.gethostname.split('.')[0] rescue nil
 vm_host_name = ENV['PAPERLESS_VAGRANTHOST'] || [hostname, username, "vagrant.paperlesspost.com"].compact.join('.')
 
+uid = %x[id -u].chomp
+
 Vagrant::Config.run do |config|
   config.vm.box = 'paperless-4.1.16'
   config.vm.box_url = 'http://nybuntu.paperlesspost.com/paperless-4.1.16.box'
 
   config.ssh.username = "paperless"
   config.vm.host_name = vm_host_name
-  config.nfs.map_uid = 501
+  config.nfs.map_uid = uid 
   config.vm.share_folder "paperlesspost", "/opt/src/paperlesspost", shared_path, :nfs => true
 
   config.vm.network :hostonly, "1.0.0.254"
