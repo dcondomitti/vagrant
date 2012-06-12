@@ -35,6 +35,8 @@ default_attributes = {
 }
 
 default_attributes[:vagrant_db_provision] = true if ENV['DBPROVISION']
+default_attributes[:vagrant_update_repos] = true if ENV['UPDATEREPOS']
+default_attributes[:vagrant_setup_devtools] = true if ENV['SETUPDEVTOOLS']
 
 Vagrant::Config.run do |config|
   config.vm.box = 'paperless-4.1.16'
