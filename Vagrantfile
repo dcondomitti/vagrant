@@ -72,6 +72,7 @@ end
 Vagrant::Config.run do |config|
   config.vm.box = box_name
   config.ssh.username = 'paperless'
+  config.ssh.forward_agent = true
   config.vm.box_url = box_url
   config.vm.host_name = vm_host_name
 
