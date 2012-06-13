@@ -88,11 +88,11 @@ Vagrant::Config.run do |config|
   config.vm.forward_port 8443, 8443
 
   config.vm.provision :chef_client do |chef|
-    chef.chef_server_url = "https://api.opscode.com/organizations/paperlesspost"
-    chef.validation_client_name = "paperlesspost-validator"
-    chef.validation_key_path = ".chef/paperlesspost-validator.pem"
-    chef.add_role("flat")
-    chef.environment = "development"
+    chef.chef_server_url = 'https://api.opscode.com/organizations/paperlesspost'
+    chef.validation_client_name = 'paperlesspost-validator'
+    chef.validation_key_path = '.chef/paperlesspost-validator.pem'
+    chef.add_role 'flat'
+    chef.environment = ENV['VAGRANT_ENVIRONMENT'] || 'development'
     chef.json = default_attributes
   end
 end
