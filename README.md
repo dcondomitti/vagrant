@@ -1,6 +1,6 @@
 # Paperless Post Development Environment
 
-Documentation can be found at http:/
+Documentation can be found at [documentation.paperlesspost.com](http://documentation.paperlesspost.com/file.vagrant.html) 
 
 ## Problems
 
