@@ -84,8 +84,8 @@ Vagrant::Config.run do |config|
   # This pair of ports is forwarded to the NAT'ed interface within the VM so that
   # you can access the mobile web interface by the IP of your host without
   # needing to add it as m.local.paperlesspost.com on your other device.
-  config.vm.forward_port 8080, 8080
-  config.vm.forward_port 8443, 8443
+  config.vm.forward_port 9080, 9080
+  config.vm.forward_port 9443, 9443
 
   config.vm.provision :chef_client do |chef|
     chef.chef_server_url = 'https://api.opscode.com/organizations/paperlesspost'
