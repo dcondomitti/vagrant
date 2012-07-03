@@ -39,7 +39,34 @@ vm_host_name = ENV['PAPERLESS_VAGRANTHOST'] || [hostname, username, "vagrant.pap
 
 # This is the initial JSON passed into chef-client as the node attributes
 # and whenever you run vagrant provision
-default_attributes = {
+default_attributes = { 
+  "flat" => {},
+  :nginx => {
+    :server_names_hash_bucket_size => 128,
+  },
+  :postgresql => {
+    :paperless => {
+      # This is a hack currently because paperless needs to create
+      # the KPI schemas which require the plpgsql language. CREATEDB
+      # just wont cut it.
+      :permissions => 'SUPERUSER'
+    },
+    # Turn off durability to improve perf
+    :non_durable => true
+  },
+  :redis => {
+    :is_standalone => true
+  },
+  :renderer => {
+    :renderers => 1,
+    :proxy_cache => false
+  },
+  :vagrant_compile_preview => false,
+  :worker => {
+    :queue => "*",
+    :workers => "1"
+  },
+  :base_apps_dir => '/opt/app',
   :devtools_config => pp_config
 }
 
@@ -53,6 +80,7 @@ default_attributes[:vagrant_update_repos] = true if ENV['UPDATEREPOS']
 
 # Forces devtools to be set up again.
 default_attributes[:vagrant_setup_devtools] = true if ENV['SETUPDEVTOOLS']
+default_attributes[:ruby] = { :testing_repo => true, :version => '1.9.3p125' }
 
 # When you're in the office we don't want to hit S3 for a file that we can stream
 # at like 8MB/s. Test to see if nybuntu.paperlesspost.com is reachable and fall-
@@ -91,7 +119,49 @@ Vagrant::Config.run do |config|
     chef.chef_server_url = 'https://api.opscode.com/organizations/paperlesspost'
     chef.validation_client_name = 'paperlesspost-validator'
     chef.validation_key_path = '.chef/paperlesspost-validator.pem'
-    chef.add_role 'flat'
+    chef.run_list = [
+  "recipe[chef_handler]",
+  "recipe[vagrant::default]",
+  "recipe[iptables]",
+  "recipe[selinux::off]",
+  "recipe[yum::centos-original]",
+  "recipe[yum::paperless]",
+  "recipe[yum::epel]",
+  "recipe[users::vagrant]",
+  "recipe[etchosts]",
+  "recipe[base-debug-tools]",
+  "recipe[chef::delete_validation]",
+  "recipe[chef::client]",
+  "recipe[network::static]",
+  "recipe[rsyslog::client]",
+  "recipe[paperless-base]",
+  "recipe[devtools]",
+  "recipe[redis::server]",
+  "recipe[postgresql::dev]",
+  "recipe[renderer::server]",
+  "recipe[dispatcher::default]",
+  "recipe[vagrant::sphinx]",
+  "recipe[vagrant::rails]",
+  "recipe[vagrant::renderer]",
+  "recipe[vagrant::sphinx]",
+  "recipe[vagrant::rails]",
+  "recipe[vagrant::renderer]",
+  "recipe[vagrant::dispatcher]",
+  "recipe[vagrant::preview]",
+  "recipe[memcache::server]",
+  "recipe[mobile]",
+  "recipe[haproxy]",
+  "recipe[haproxy::webapp]",
+  "recipe[rails::nginx]",
+  "recipe[vagrant::mobile]",
+  "recipe[worker]",
+  "recipe[vagrant::worker]",
+  "recipe[bash_includes::ps1]",
+  "recipe[bash_includes::git_completion]",
+  "recipe[bash_includes::hub]",
+  "recipe[bash_includes::bashmarks]",
+  "recipe[bash_includes::display_host_ip]",
+]
     chef.environment = ENV['VAGRANT_ENVIRONMENT'] || 'development'
     chef.json = default_attributes
   end
