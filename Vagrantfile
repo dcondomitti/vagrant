@@ -70,6 +70,8 @@ default_attributes = {
   :devtools_config => pp_config
 }
 
+raise default_attributes.to_json
+
 # Forces a db migration, production slice import and thinking sphinx
 # reindex
 default_attributes[:vagrant_db_provision] = true if ENV['DBPROVISION']
@@ -162,7 +164,8 @@ Vagrant::Config.run do |config|
   "recipe[bash_includes::bashmarks]",
   "recipe[bash_includes::display_host_ip]",
 ]
-    chef.environment = ENV['VAGRANT_ENVIRONMENT'] || 'development'
+    chef.environment = ENV['VAGRANT_ENVIRONMENT'] || 'development_testing'
     chef.json = default_attributes
   end
 end
+
