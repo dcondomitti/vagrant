@@ -3,7 +3,7 @@ log_location       STDOUT
 <% if node_name %>
 node_name          "<%= node_name %>"
 <% end %>
-ssl_verify_mode    :verify_none
+ssl_verify_mode    <%= ssl_verify_mode %>
 chef_server_url    "<%= chef_server_url %>"
 
 validation_client_name "<%= validation_client_name %>"

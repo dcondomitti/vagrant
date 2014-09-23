@@ -18,6 +18,7 @@ module VagrantPlugins
           attr_accessor :environment
           attr_accessor :encrypted_data_bag_secret_key_path
           attr_accessor :encrypted_data_bag_secret
+          attr_accessor :ssl_verify_mode
 
           # Provide defaults in such a way that they won't override the instance
           # variable. This is so merging continues to work properly.
@@ -26,6 +27,7 @@ module VagrantPlugins
           def file_cache_path; @file_cache_path || "/srv/chef/file_store"; end
           def file_backup_path; @file_backup_path || "/srv/chef/cache"; end
           def encrypted_data_bag_secret; @encrypted_data_bag_secret || "/tmp/encrypted_data_bag_secret"; end
+          def ssl_verify_mode; @ssl_verify_mode || :verify_peer; end
 
           def validate(env, errors)
             super
@@ -85,7 +87,8 @@ module VagrantPlugins
             :file_cache_path => config.file_cache_path,
             :file_backup_path => config.file_backup_path,
             :environment => config.environment,
-            :encrypted_data_bag_secret => config.encrypted_data_bag_secret
+            :encrypted_data_bag_secret => config.encrypted_data_bag_secret,
+            :ssl_verify_mode => config.ssl_verify_mode
           })
         end
 
